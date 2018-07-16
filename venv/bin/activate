@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/jadiaz/develop/python/exo/venv"
+VIRTUAL_ENV="/home/jadiaz/develop/python/exo/exo/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

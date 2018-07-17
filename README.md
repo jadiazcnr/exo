@@ -18,13 +18,13 @@ Test Api calls and sources data
 python manage.py test exo
 ```
 
-## Api Reference
-# Rates
+# Api Reference
+## Rates
 GET /rates?date-from=2018-01-01&date-to=2018-02-01
 
-# Convert
+## Convert
 GET /convert?origin=EUR&target=USD&amount=20
 
-# Time weighted rate
+## Time weighted rate
 GET /time-weighted-rate?origin=EUR&target=USD&amount=20&date-invested=2018-01-01
 

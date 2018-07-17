@@ -127,4 +127,4 @@ STATIC_URL = '/static/'
 
 RATE_DATA_PROVIDER = 'Mock'
 FIXER_BASE_URL = "http://data.fixer.io/api/"
-FIXER_ACCESS_KEY = 'Mock'
+FIXER_ACCESS_KEY = '9d4707da0c33067ff50c6bd81ae8a494'

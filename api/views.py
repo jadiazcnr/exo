@@ -22,7 +22,7 @@ def rates(request):
         try:
             result = get_rates_between_dates(request.GET.get("date-from"), request.GET.get("date-to"))
         except Exception as e:
-            return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(result, status=status.HTTP_200_OK)
 
 
@@ -40,7 +40,7 @@ def convert(request):
         try:
             result = convert_imp(data.get("origin"), data.get("target"), data.get("amount"))
         except Exception as e:
-            return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(result, status=status.HTTP_200_OK)
 
 
@@ -59,5 +59,5 @@ def time_weighted_rate(request):
         try:
             result = calculate_time_weighted_rate(data.get("origin"), data.get("target"), data.get("amount"), data.get("date-invested"))
         except Exception as e:
-            return Response(e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         return Response(result, status=status.HTTP_200_OK)

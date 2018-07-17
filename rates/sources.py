@@ -38,22 +38,31 @@ class Fixer(Implementor):
             data["base"] = base
         if symbols:
             data["symbols"] = symbols
-            result = requests.get(settings.FIXER_BASE_URL + "latest", data).json()
-        return self.__process_response(result)
+            try:
+                result = requests.get(settings.FIXER_BASE_URL + "latest", data)
+            except (requests.ConnectionError, requests.ConnectTimeout) as e:
+                return self.__process_response(e)
+        return self.__process_response(result.json())
 
     def get_historical_rate_imp(self, date):
         data = {"access_key": settings.FIXER_ACCESS_KEY}
-        result = requests.get(settings.FIXER_BASE_URL + date.strftime("%Y-%m-%d"), data).json()
-        return self.__process_response(result)
+        try:
+            result = requests.get(settings.FIXER_BASE_URL + date.strftime("%Y-%m-%d"), data)
+        except (requests.ConnectionError, requests.ConnectTimeout) as e:
+            return self.__process_response(e)
+        return self.__process_response(result.json())
 
     def get_rates_between_dates_imp(self, date_from, date_to):
         data = {
             "access_key": settings.FIXER_ACCESS_KEY,
-            "start_date": date_from.strftime("%Y-%m-%d"),
-            "end_date": date_to.strftime("%Y-%m-%d")
+            "start_date": date_from,
+            "end_date": date_to
         }
-        result = requests.get(settings.FIXER_BASE_URL + 'timeseries', data).json()
-        return self.__process_response(result)
+        try:
+            result = requests.get(settings.FIXER_BASE_URL + 'timeseries', data)
+        except (requests.ConnectionError, requests.ConnectTimeout) as e:
+            return self.__process_response(e)
+        return self.__process_response(result.json())
 
     def convert_impl(self, origin, target, amount):
         data = {
@@ -62,27 +71,35 @@ class Fixer(Implementor):
             "to": target,
             "amount": amount
         }
-        result = requests.get(settings.FIXER_BASE_URL + "convert", data).json()
-        return self.__process_response(result)
+        try:
+            result = requests.get(settings.FIXER_BASE_URL + "convert", data)
+        except (requests.ConnectionError, requests.ConnectTimeout) as e:
+            return self.__process_response(e)
+        return self.__process_response(result.json())
 
     def calculate_fluctuaction(self, origin, target, start_date, end_date):
         data = {
             "access_key": settings.FIXER_ACCESS_KEY,
-            "start_date": start_date.strftime("%Y-%m-%d"),
+            "start_date": start_date,
             "end_date": end_date.strftime("%Y-%m-%d"),
             "base": origin,
             "symbols": target
         }
-        result = requests.get(settings.FIXER_BASE_URL + "fluctuation", data).json()
-        return self.__process_response(result)
+        try:
+            result = requests.get(settings.FIXER_BASE_URL + "fluctuation", data)
+        except (requests.ConnectionError, requests.ConnectTimeout) as e:
+            return self.__process_response(e)
+        return self.__process_response(result.json())
 
     @staticmethod
     def __process_response(result):
         if result.get("success"):
             return result
-        else:
+        if result.get("error"):
             logger.error(result.get("error"))
-            raise ResponseKoException("Error obteniendo los datos")
+        else:
+            logger.error(result)
+        raise ResponseKoException("Error obteniendo los datos")
 
 
 class Mock(Implementor):

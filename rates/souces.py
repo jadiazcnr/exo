@@ -82,7 +82,7 @@ class Fixer(Implementor):
         if result.get("success"):
             return result
         else:
-            logging.error(result.get("error"))
+            logger.error(result.get("error"))
             raise ResponseKoException("Error obteniendo los datos")
 
 

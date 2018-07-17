@@ -6,7 +6,7 @@ class RateDataProvider:
     _provider_choices = {'fixer': Fixer(), 'mock': Mock()}
 
     def __init__(self, imp):
-        if imp in self._provider_choices.keys():
+        if imp in self._provider_choices:
             self._imp = self._provider_choices.get(imp)
         else:
             raise ValueError("Invalid type of rate data provider: {}".format(imp))

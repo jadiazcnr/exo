@@ -1,1 +1,1 @@
-currency = ["EUR", "CHF", "USD", "GBP"]
+CURRENCY = ["EUR", "CHF", "USD", "GBP"]

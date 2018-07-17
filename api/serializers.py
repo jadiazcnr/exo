@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from datetime import datetime
-from rates.common import currency
+from rates.common import CURRENCY
 
 
 class RatesSerializer(serializers.ModelSerializer):
@@ -41,13 +41,13 @@ class ConvertSerializer(serializers.ModelSerializer):
         if not origin:
             errors['5'] = u'origin is required'
         else:
-            if origin not in currency:
-                errors['6'] = u'origin has to be one of ' + currency
+            if origin not in CURRENCY:
+                errors['6'] = u'origin has to be one of ' + CURRENCY
         if not target:
             errors['7'] = u'target is required'
         else:
-            if target not in currency:
-                errors['8'] = u'target has to be one of ' + currency
+            if target not in CURRENCY:
+                errors['8'] = u'target has to be one of ' + CURRENCY
         if not amount:
             errors['9'] = u'amount is required'
         else:
@@ -72,13 +72,13 @@ class TimeWeightedSerializer(serializers.ModelSerializer):
         if not origin:
             errors['5'] = u'origin is required'
         else:
-            if origin not in currency:
-                errors['6'] = u'origin has to be one of ' + currency
+            if origin not in CURRENCY:
+                errors['6'] = u'origin has to be one of ' + CURRENCY
         if not target:
             errors['7'] = u'target is required'
         else:
-            if target not in currency:
-                errors['8'] = u'target has to be one of ' + currency
+            if target not in CURRENCY:
+                errors['8'] = u'target has to be one of ' + CURRENCY
         if not amount:
             errors['9'] = u'amount is required'
         else:

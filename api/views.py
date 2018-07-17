@@ -11,6 +11,12 @@ from api.serializers import RatesSerializer, ConvertSerializer, TimeWeightedSeri
 
 @api_view(['GET'])
 def rates(request):
+    """
+    Return a list of currencies between two dates
+    - date-from -- Start date to get data
+    - date-to -- End date to get data
+    """
+
     serializer = RatesSerializer()
     if serializer.validate(request.GET):
         try:
@@ -22,6 +28,12 @@ def rates(request):
 
 @api_view(['GET'])
 def convert(request):
+    """
+    Return a conversion of an amount between two currencies
+    - origin -- Currency origin [EUR, CHF, USD, GBP]
+    - target -- Currency target [EUR, CHF, USD, GBP]
+    - amount -- Amount of money
+    """
     data = request.GET
     serializer = ConvertSerializer()
     if serializer.validate(data):
@@ -34,6 +46,13 @@ def convert(request):
 
 @api_view(['GET'])
 def time_weighted_rate(request):
+    """
+    Return a time weighted rate of currency change between a date and today
+    - origin -- Currency origin [EUR, CHF, USD, GBP]
+    - target -- Currency target [EUR, CHF, USD, GBP]
+    - amount -- Amount of money
+    - date-invested -- Start date to calculate
+    """
     data = request.GET
     serializer = TimeWeightedSerializer()
     if serializer.validate(data):

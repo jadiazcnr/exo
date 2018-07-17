@@ -42,12 +42,12 @@ class ConvertSerializer(serializers.ModelSerializer):
             errors['5'] = u'origin is required'
         else:
             if origin not in CURRENCY:
-                errors['6'] = u'origin has to be one of ' + CURRENCY
+                errors['6'] = u'origin has to be one of ' + ' '.join(CURRENCY)
         if not target:
             errors['7'] = u'target is required'
         else:
             if target not in CURRENCY:
-                errors['8'] = u'target has to be one of ' + CURRENCY
+                errors['8'] = u'target has to be one of ' + ' '.join(CURRENCY)
         if not amount:
             errors['9'] = u'amount is required'
         else:
@@ -73,12 +73,12 @@ class TimeWeightedSerializer(serializers.ModelSerializer):
             errors['5'] = u'origin is required'
         else:
             if origin not in CURRENCY:
-                errors['6'] = u'origin has to be one of ' + CURRENCY
+                errors['6'] = u'origin has to be one of ' + ' '.join(CURRENCY)
         if not target:
             errors['7'] = u'target is required'
         else:
             if target not in CURRENCY:
-                errors['8'] = u'target has to be one of ' + CURRENCY
+                errors['8'] = u'target has to be one of ' + ' '.join(CURRENCY)
         if not amount:
             errors['9'] = u'amount is required'
         else:

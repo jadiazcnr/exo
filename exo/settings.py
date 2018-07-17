@@ -125,4 +125,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-RATE_DATA_PROVIDER = 'mock'
+RATE_DATA_PROVIDER = 'Mock'
+FIXER_BASE_URL = "http://data.fixer.io/api/"
+FIXER_ACCESS_KEY = 'Mock'

@@ -2,6 +2,7 @@ import abc
 from rates.exceptions import ResponseKoException
 import requests
 import logging
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
@@ -30,51 +31,49 @@ class Implementor(metaclass=abc.ABCMeta):
 
 
 class Fixer(Implementor):
-    base_url = "http://data.fixer.io/api/"
-    access_key = "9d4707da0c33067ff50c6bd81ae8a494"
 
     def get_rate_imp(self, base, symbols):
-        data = {"access_key": self.access_key}
+        data = {"access_key": settings.FIXER_ACCESS_KEY}
         if base:
             data["base"] = base
         if symbols:
             data["symbols"] = symbols
-            result = requests.get(self.base_url + "latest", data).json()
+            result = requests.get(settings.FIXER_BASE_URL + "latest", data).json()
         return self.__process_response(result)
 
     def get_historical_rate_imp(self, date):
-        data = {"access_key": self.access_key}
-        result = requests.get(self.base_url + date.strftime("%Y-%m-%d"), data).json()
+        data = {"access_key": settings.FIXER_ACCESS_KEY}
+        result = requests.get(settings.FIXER_BASE_URL + date.strftime("%Y-%m-%d"), data).json()
         return self.__process_response(result)
 
     def get_rates_between_dates_imp(self, date_from, date_to):
         data = {
-            "access_key": self.access_key,
+            "access_key": settings.FIXER_ACCESS_KEY,
             "start_date": date_from.strftime("%Y-%m-%d"),
             "end_date": date_to.strftime("%Y-%m-%d")
         }
-        result = requests.get(self.base_url + 'timeseries', data).json()
+        result = requests.get(settings.FIXER_BASE_URL + 'timeseries', data).json()
         return self.__process_response(result)
 
     def convert_impl(self, origin, target, amount):
         data = {
-            "access_key": self.access_key,
+            "access_key": settings.FIXER_ACCESS_KEY,
             "from": origin,
             "to": target,
             "amount": amount
         }
-        result = requests.get(self.base_url + "convert", data).json()
+        result = requests.get(settings.FIXER_BASE_URL + "convert", data).json()
         return self.__process_response(result)
 
     def calculate_fluctuaction(self, origin, target, start_date, end_date):
         data = {
-            "access_key": self.access_key,
+            "access_key": settings.FIXER_ACCESS_KEY,
             "start_date": start_date.strftime("%Y-%m-%d"),
             "end_date": end_date.strftime("%Y-%m-%d"),
             "base": origin,
             "symbols": target
         }
-        result = requests.get(self.base_url + "fluctuation", data).json()
+        result = requests.get(settings.FIXER_BASE_URL + "fluctuation", data).json()
         return self.__process_response(result)
 
     @staticmethod

@@ -1,7 +1,7 @@
 
 # Exo Currency API
 
-API to get currency information, we need to have a professional Fixer account in order to complete the operations, we can use Mock response to use it
+API to get currency information, we need to have a professional Fixer account in order to complete the operations, we can use Mock response to use it menawhile.
 
 ## Installing / Getting started
 
